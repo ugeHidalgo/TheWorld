@@ -1,0 +1,30 @@
+﻿@model TheWorld.ViewModels.ContactViewModel
+@{
+    ViewBag.Title = "Contact Page";
+}
+
+@section scripts {
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
+
+<h1>Contact</h1>
+@ViewBag.UserMessage
+<form method="post">
+    <span asp-validation-summary="ModelOnly"></span>
+    <label asp-for="Name"></label>
+    <input asp-for="Name"/>
+    <span asp-validation-for="Name"></span>
+
+    <label asp-for="Email"></label>
+    <input asp-for="Email" type="email" />
+    <span asp-validation-for="Email"></span>
+
+    <label asp-for="Message"></label>
+    <textarea asp-for="Message" cols="40" rows="4"></textarea>
+    <span asp-validation-for="Message"></span>
+
+    <div>
+        <input type="submit" value="Send Message" />
+    </div>
+</form>
