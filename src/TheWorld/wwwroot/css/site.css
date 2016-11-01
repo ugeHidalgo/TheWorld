@@ -1,17 +1,18 @@
-﻿body {
+﻿/*body { //Lo incorpora bootstrap
     font-family: sans-serif;
     font-size: 14px;
     margin: 0;
 }
 
-label {
+label { //Lo incorpora el template spacelab de bootstrap
     font-weight: bold;
     display: block;
 }
 
+    //Lo incorpora el template spacelab de bootstrap
 input[type=text], input[type=password], textarea {
     width: 150px;
-}
+}*/
 
 #wrapper {
     margin-left: 250px;
@@ -29,11 +30,11 @@ input[type=text], input[type=password], textarea {
         transition: margin-left ease .25s;
     }
 
-#main {
+/*#main { //Lo incorpora el template spacelab de bootstrap
     background-color: #eee;
     padding: 4px;
     margin: 0;
-}
+}*/
 
 #sidebar {
     background-color: #2a2c36;
@@ -57,14 +58,14 @@ input[type=text], input[type=password], textarea {
         transition: left ease .25s;
     }
 
-#footer {
+/*#footer {  //Lo incorpora el template spacelab de bootstrap
     background-color: #222;
     color: #eee;
     padding: 8px 5px;
     position: fixed;
     bottom: 0;
     width: 100%;
-}
+}*/
 
 .headshot {
     max-width: 50px;
