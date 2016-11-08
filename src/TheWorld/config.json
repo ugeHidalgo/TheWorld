@@ -1,5 +1,8 @@
 ﻿{
   "MailSettings": {
     "ToAddress": "uge@gmail.com"
-  }    
+  },
+  "ConnectionStrings": {
+    "WorldContextConnection": "Data Source=(localdb)\\MSSQLLocalDB;Database=TheWorldDb;Trusted_Connection=true;MultipleActiveResultSets=true"
+  }
 }

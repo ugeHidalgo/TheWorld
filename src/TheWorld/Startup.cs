@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Framework.Configuration;
+using TheWorld.Models;
 using TheWorld.Services;
 
 namespace TheWorld
@@ -42,11 +43,15 @@ namespace TheWorld
                 //services.AddScoped<IMailService, ElServicioReal>();
             }
 
+            services.AddDbContext<WorldContext>();
+            services.AddScoped<IWorldRepository, WorldRepository>();
+            services.AddTransient<WorldContextSeedData>();
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
+            ILoggerFactory loggerFactory, WorldContextSeedData seeder)
         {
             //loggerFactory.AddConsole();
 
@@ -74,10 +79,12 @@ namespace TheWorld
             {
                 config.MapRoute(
                     name: "Default",
-                    template:"{controller}/{action}/{id?}",
-                    defaults: new {controller = "App", action="Index"} //Página de inicio por defecto
+                    template: "{controller}/{action}/{id?}",
+                    defaults: new { controller = "App", action = "Index" } //Página de inicio por defecto
                     );
-            });            
+            });
+
+            seeder.SeedData().Wait();
         }
     }
 }
