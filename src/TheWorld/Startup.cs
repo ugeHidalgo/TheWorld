@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Framework.Configuration;
 using TheWorld.Models;
 using TheWorld.Services;
+using TheWorld.ViewModels;
 
 namespace TheWorld
 {
@@ -51,9 +53,16 @@ namespace TheWorld
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
-            ILoggerFactory loggerFactory, WorldContextSeedData seeder )
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,
+            ILoggerFactory loggerFactory, WorldContextSeedData seeder)
         {
+            Mapper.Initialize(config => {
+                config.CreateMap<TripViewModel, Trip>()
+                .ForMember(trip => trip.DateCreated, tripViewModel => tripViewModel.MapFrom(model => model.Created))
+                .ReverseMap();
+            });
+
+
             //loggerFactory.AddConsole();
 
             //if (env.IsDevelopment())

@@ -19,7 +19,8 @@
     "Microsoft.EntityFrameworkCore.Tools": {
       "version": "1.0.0-preview2-final",
       "type": "build"
-    }
+    },
+    "AutoMapper": "4.2.1"
   },
 
   "tools": {
