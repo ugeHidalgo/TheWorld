@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace TheWorld.Models
 {
@@ -13,17 +14,20 @@ namespace TheWorld.Models
             _context = context;
         }
 
-        public Trip AddNewTrip(Trip trip)
+        public void AddTrip(Trip trip)
         {
             trip.DateCreated = DateTime.Now;
-            _context.Trips.Add(trip);
-            _context.SaveChanges();
-            return _context.Trips.FirstOrDefault(x => x.Id == trip.Id);            
+            _context.Add(trip);
         }
 
         public IEnumerable<Trip> GetAllTrips()
         {
             return _context.Trips.ToList();
         }
+
+        public async Task<bool> SaveChangesAsync()
+        {
+            return (await _context.SaveChangesAsync()) > 0;
+        }        
     }
 }

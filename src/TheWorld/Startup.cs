@@ -79,8 +79,12 @@ namespace TheWorld
             if (env.IsEnvironment("Development"))
             {
                 app.UseDeveloperExceptionPage(); //Para evitar la pantalla en blanco y que muestre el error
-                //loggerFactory.AddConsole();
+                loggerFactory.CreateLogger("The world logger");
+                //Ejemplo de uso: https://docs.microsoft.com/en-us/aspnet/core/fundamentals/logging
+                //Inyectar en la clase a usar, p.e: en tripsController como ILogger<TripsController> logger
             }
+
+            loggerFactory.CreateLogger("The world logger");
 
             app.UseStaticFiles();
 
