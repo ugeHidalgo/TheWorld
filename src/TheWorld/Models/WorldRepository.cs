@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,10 +21,18 @@ namespace TheWorld.Models
             _context.Add(trip);
         }
 
+        public Trip GetTripByName(string tripName)
+        {
+            return _context.Trips
+                .Include(t=>t.Stops)
+                .Where(x => x.Name == tripName)
+                .FirstOrDefault();
+        }
+
         public IEnumerable<Trip> GetAllTrips()
         {
             return _context.Trips.ToList();
-        }
+        }        
 
         public async Task<bool> SaveChangesAsync()
         {

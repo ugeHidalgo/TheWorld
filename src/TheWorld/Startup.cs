@@ -60,8 +60,10 @@ namespace TheWorld
                 config.CreateMap<TripViewModel, Trip>()
                 .ForMember(trip => trip.DateCreated, tripViewModel => tripViewModel.MapFrom(model => model.Created))
                 .ReverseMap();
-            });
 
+                config.CreateMap<StopViewModel, Stop>()
+                .ReverseMap();
+            });            
 
             //loggerFactory.AddConsole();
 
