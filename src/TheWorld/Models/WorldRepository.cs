@@ -29,6 +29,16 @@ namespace TheWorld.Models
                 .FirstOrDefault();
         }
 
+        public void AddStopTo(string tripName, Stop newStop)
+        {
+            var trip = GetTripByName(tripName);
+            if ( trip!=null )
+            {
+                trip.Stops.Add(newStop);
+                _context.Stops.Add(newStop);                
+            }
+        }
+
         public IEnumerable<Trip> GetAllTrips()
         {
             return _context.Trips.ToList();

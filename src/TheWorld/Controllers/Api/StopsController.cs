@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using TheWorld.Models;
+using TheWorld.ViewModels;
 
 namespace TheWorld.Controllers.Api
 {
@@ -36,9 +38,26 @@ namespace TheWorld.Controllers.Api
 
 
         [HttpPost("")]
-        public ActionResult Post()
+        public async Task<ActionResult> Post(string tripName, [FromBody]StopViewModel stop)
         {
-            return BadRequest("Post not implemented yet.");
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var newStop = Mapper.Map<Stop>(stop);
+                    _repository.AddStopTo(tripName, newStop);
+                    if (await _repository.SaveChangesAsync())
+                    {
+                        return Created($"api/trips/{tripName}/stops/{newStop.Name}", 
+                            Mapper.Map<StopViewModel>(newStop));
+                    }
+                }
+            }
+            catch (System.Exception ex)
+            {
+                _logger.LogError($"Failed to save new stopo: {ex}");
+            }
+            return BadRequest($"Failed to post new stop.");
         }
     }
 }
