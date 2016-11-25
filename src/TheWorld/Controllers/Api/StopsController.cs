@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TheWorld.Models;
+using TheWorld.Services;
 using TheWorld.ViewModels;
 
 namespace TheWorld.Controllers.Api
@@ -12,13 +13,17 @@ namespace TheWorld.Controllers.Api
     [Route("/api/trips/{tripName}/stops")]
     public class StopsController : Controller
     {
+        private GeoCoordsService _coordsService;
         private ILogger _logger;
         private IWorldRepository _repository;
 
-        public StopsController(IWorldRepository repository, ILogger<StopsController> logger)
+        public StopsController(IWorldRepository repository, 
+            ILogger<StopsController> logger,
+            GeoCoordsService coordsService)
         {
             _repository = repository;
             _logger = logger;
+            _coordsService = coordsService;
         }
 
         [HttpGet("")]
@@ -45,12 +50,25 @@ namespace TheWorld.Controllers.Api
                 if (ModelState.IsValid)
                 {
                     var newStop = Mapper.Map<Stop>(stop);
-                    _repository.AddStopTo(tripName, newStop);
-                    if (await _repository.SaveChangesAsync())
+
+                    var result = await _coordsService.GetCoordAsync(newStop.Name);
+                    if (!result.Success)
                     {
-                        return Created($"api/trips/{tripName}/stops/{newStop.Name}", 
-                            Mapper.Map<StopViewModel>(newStop));
+                        _logger.LogError(result.Message);
                     }
+                    else
+                    {
+                        newStop.Latitude = result.Latitude;
+                        newStop.Longitude = result.Longitude;
+
+                        _repository.AddStopTo(tripName, newStop);
+
+                        if (await _repository.SaveChangesAsync())
+                        {
+                            return Created($"api/trips/{tripName}/stops/{newStop.Name}",
+                                Mapper.Map<StopViewModel>(newStop));
+                        }
+                    }                    
                 }
             }
             catch (System.Exception ex)

@@ -4,5 +4,8 @@
   },
   "ConnectionStrings": {
     "WorldContextConnection": "Data Source=(localdb)\\MSSQLLocalDB;Database=TheWorldDb;Trusted_Connection=true;MultipleActiveResultSets=true"
+  },
+  "keys": {
+    "BingKey" :  "DONOTPUTTHEKEYHERE_INSTEADUSETHEMACHINEREGISTRY"
   }
 }
