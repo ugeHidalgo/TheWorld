@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Framework.Configuration;
 using System.Linq;
@@ -23,8 +24,15 @@ namespace TheWorld.Controllers.Web
 
         public IActionResult Index()
         {
-            var data = _repository.GetAllTrips();
-            return View(data);  //renderiza la vista y la devuelve, se le pasan los datos de los trips.
+            return View();  
+        }
+
+        [Authorize]
+        public IActionResult Trips()
+        { //Sera una vista solo accesible por usuarios autorizados
+            var trips = _repository.GetAllTrips();
+
+            return View(trips);  //renderiza la vista y la devuelve, se le pasan los datos de los trips. 
         }
 
         public IActionResult Contact()

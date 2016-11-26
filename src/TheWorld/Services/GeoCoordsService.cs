@@ -26,7 +26,7 @@ namespace TheWorld.Services
                 Message = "Failed to get coordinates."
             };
 
-            var apiKey = _config["keys:BingKey"];
+            var apiKey = _config["Keys:BingKey"];
             var encodedName = WebUtility.UrlEncode(name);
             var url = $"http://dev.virtualearth.net/REST/v1/Locations?q={encodedName}&key={apiKey}";
 
