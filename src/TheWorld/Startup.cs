@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Framework.Configuration;
@@ -50,7 +51,8 @@ namespace TheWorld
             {
                 config.User.RequireUniqueEmail = true;
                 config.Password.RequiredLength = 8;
-            }).AddEntityFrameworkStores<WorldContext>();
+                config.Cookies.ApplicationCookie.LoginPath = "/Auth/Login";
+            }).AddEntityFrameworkStores<WorldContext>();//Añade identity al WorlContext, ya que es donde se alamacenará.
 
             services.AddDbContext<WorldContext>();
             services.AddScoped<IWorldRepository, WorldRepository>();
@@ -58,7 +60,14 @@ namespace TheWorld
             services.AddTransient<GeoCoordsService>();
 
             //services.AddLogging();
-            services.AddMvc();
+            services.AddMvc(config =>
+            {
+                if (_env.IsProduction())
+                {
+                    config.Filters.Add(new RequireHttpsAttribute());
+                }
+            });
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -98,6 +107,8 @@ namespace TheWorld
             loggerFactory.CreateLogger("The world logger");
 
             app.UseStaticFiles();
+
+            app.UseIdentity();
 
             //Para que haga uso de MVC y así valla a index.cshtml
 

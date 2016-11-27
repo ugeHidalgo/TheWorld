@@ -1,12 +1,11 @@
-﻿@Model IEnumerable<TheWorld.Models.Trip>
-@{
+﻿@{
     ViewBag.Title = "Home Page";
 }
 
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12 col-md-offset-1">
         <h1>The World</h1>        
-    </div>
-    <p>This app will allow you to plan for world trips.</p> 
-    <a asp-controller="App" asp-action="trips" class="btn btn-lg btn-success">View my trips</a>
+        <p>This app will allow you to plan for world trips.</p>
+        <a asp-controller="App" asp-action="trips" class="btn btn-lg btn-success">View my trips</a>
+    </div>    
 </div>
