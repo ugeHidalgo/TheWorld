@@ -52,7 +52,7 @@ namespace TheWorld
                 config.User.RequireUniqueEmail = true;
                 config.Password.RequiredLength = 8;
                 config.Cookies.ApplicationCookie.LoginPath = "/Auth/Login";
-            }).AddEntityFrameworkStores<WorldContext>();//Añade identity al WorlContext, ya que es donde se alamacenará.
+            }).AddEntityFrameworkStores<WorldContext>();//Añade identity al WorlContext, ya que es donde se almacenará.
 
             services.AddDbContext<WorldContext>();
             services.AddScoped<IWorldRepository, WorldRepository>();
