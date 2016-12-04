@@ -4,17 +4,15 @@
 }
 @section Scripts {
     <script src="~/lib/angular/angular.min.js"></script>
+    <script src="~/js/controllers/simpleControls.js"></script>
     <script src="~/js/controllers/app-trips.js"></script>
-    <script src="~/js/controllers/tripsController.js"></script>
+    <script src="~/js/controllers/tripsController.js"></script>    
 }
 <div class="row" ng-app="app-trips">
 
     <div ng-controller="tripsController as vm" class="col-md-6 col-md-offset-3">
         <div class="text-danger" ng-show="vm.errorMessage">{{vm.errorMessage}}</div>
-        <div ng-show="vm.isBusy" class="text-center">
-            <i class="fa fa-spinner fa-spin"></i>
-            Loading ...
-        </div>
+        <wait-cursor display-when="vm.isBusy"></wait-cursor>
         <table class="table table-responsive table-striped">
             <tr ng-repeat="trip in vm.trips">
                 <td class="col-sm-1"><a href="#" class="btn btn-sm btn-primary">Manage</a></td>
