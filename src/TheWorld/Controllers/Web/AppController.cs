@@ -29,10 +29,8 @@ namespace TheWorld.Controllers.Web
 
         [Authorize]
         public IActionResult Trips()
-        { //Sera una vista solo accesible por usuarios autorizados
-            var trips = _repository.GetAllTrips();
-
-            return View(trips);  //renderiza la vista y la devuelve, se le pasan los datos de los trips. 
+        {           
+            return View();
         }
 
         public IActionResult Contact()
