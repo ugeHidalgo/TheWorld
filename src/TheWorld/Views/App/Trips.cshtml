@@ -2,15 +2,25 @@
     ViewBag.Title = "Home Page";
 }
 @section Scripts {
+
+    
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDS7Syd76e3allIrLsYVfIcJ43kZ0NnHiI&callback=initMap"
+        type="text/javascript"></script>
+
+    <script src="~/lib/underscore/underscore-min.js"></script>
     <script src="~/lib/angular/angular.min.js"></script>
     <script src="~/lib/angular-route/angular-route.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
+    <script src="~/lib/gmaps/gmaps.min.js"></script>
+    <script src="~/lib/travelmap/travelmap.min.js"></script>
     <script src="~/js/controllers/simpleControls.js"></script>
     <script src="~/js/controllers/app-trips.js"></script>
-    <script src="~/js/controllers/tripsController.js"></script>        
+    <script src="~/js/controllers/tripsController.js"></script>
     <script src="~/js/controllers/tripEditorController.js"></script>
 }
 <div class="row" ng-app="app-trips">
 
     <div ng-view></div>
-    
+
 </div>

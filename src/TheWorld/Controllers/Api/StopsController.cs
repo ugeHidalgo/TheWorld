@@ -75,7 +75,7 @@ namespace TheWorld.Controllers.Api
             }
             catch (System.Exception ex)
             {
-                _logger.LogError($"Failed to save new stopo: {ex}");
+                _logger.LogError($"Failed to save new stop: {ex}");
             }
             return BadRequest($"Failed to post new stop.");
         }
