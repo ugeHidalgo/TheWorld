@@ -11,6 +11,7 @@
         vm.stops = [];
         vm.errorMessage = '';
         vm.isBusy = true;
+        vm.newStop = {};
 
         url = '/api/trips/' + vm.tripName + '/stops';
         $http.get(url)
@@ -23,7 +24,23 @@
             .finally(function () {
                 vm.isBusy = false;
             });
+
+        vm.addStop = function () {
+            vm.isBusy = true;
+            $http.post(url, vm.newStop)
+                .then(function (response) { //Success
+                    vm.stops.push(response.data);
+                    _showMap(vm.stops);
+                    vm.newStop = {};
+                }, function (error) { //Error
+                    vm.errorMessage = 'Failed to save new stop :' + error;
+                })
+                .finally(function () {
+                    vm.isBusy = false;
+                });
+        };
     }
+    
 
     function _showMap(stops) { //_ is for private functions
         if (stops && stops.length > 0) {
