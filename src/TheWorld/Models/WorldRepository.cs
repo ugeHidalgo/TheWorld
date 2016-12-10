@@ -59,6 +59,14 @@ namespace TheWorld.Models
                 .Include(t => t.Stops)
                 .Where(x => x.Name == tripName && x.UserName == username)
                 .FirstOrDefault();
+        }        
+
+        public bool RemoveStop(string tripName, string stopName, string username)
+        {
+            var stops = GetUserTripByName(tripName, username).Stops;
+            var stopToRemove = stops.FirstOrDefault(x => x.Name == stopName);
+            if (stopToRemove == null) return false;
+            return stops.Remove(stopToRemove);
         }
     }
 }

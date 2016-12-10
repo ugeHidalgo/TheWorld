@@ -39,9 +39,21 @@
                     vm.isBusy = false;
                 });
         };
+
+        vm.removeStop = function (stop) {
+            vm.isBusy = true;
+            $http.delete('/api/trips/' + vm.tripName + '/' + stop.name)
+                .then(function (response) { //success                    
+                    vm.stops = _removeStop(vm.stops, stop.name);
+                    _showMap(vm.stops);                    
+                }, function () { //Failure
+                })
+                .finally(function () {
+                    vm.isBusy = false;
+                });
+        };
     }
     
-
     function _showMap(stops) { //_ is for private functions
         if (stops && stops.length > 0) {
 
@@ -63,6 +75,16 @@
             });
 
         }
+    }
+
+    function _removeStop(stops, stopName) {
+        var newStops = [];
+        stops.forEach(function (stop) {
+            if (stop.name !== stopName) {
+                newStops.push(stop);
+            }
+        });
+        return newStops;
     }
 
 })();

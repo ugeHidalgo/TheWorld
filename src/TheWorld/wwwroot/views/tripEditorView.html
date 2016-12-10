@@ -5,7 +5,7 @@
             <i class="fa fa-angle-left"></i>Back
         </a>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
         <h3>{{ vm.tripName }}</h3>
         <wait-cursor display-when="vm.isBusy"></wait-cursor>
         <div class="alert alert-danger" ng-show="vm.errorMessage">{{vm.errorMessage}}</div>
@@ -36,10 +36,16 @@
 
         <table class="table table-responsive table-striped">
             <tr>
+                <th></th>
                 <th>Location</th>
                 <th>Arrival</th>
             </tr>
             <tr ng-repeat="stop in vm.stops">
+                <td class="col-sm-1">
+                    <a ng-click="vm.removeStop(stop)" class="btn btn-sm btn-info">
+                        <i class="fa fa-remove"></i>
+                    </a>
+                </td>
                 <td class="col-md-6">{{stop.name}}</td>
                 <td class="col-sm-3">{{stop.arrival | date : 'dd-MM-yyyy'}}</td>                
             </tr>
