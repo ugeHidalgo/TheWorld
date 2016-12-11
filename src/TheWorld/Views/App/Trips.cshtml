@@ -14,10 +14,18 @@
     <script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
     <script src="~/lib/gmaps/gmaps.min.js"></script>
     <script src="~/lib/travelmap/travelmap.min.js"></script>
-    <script src="~/js/controllers/simpleControls.js"></script>
-    <script src="~/js/controllers/app-trips.js"></script>
-    <script src="~/js/controllers/tripsController.js"></script>
-    <script src="~/js/controllers/tripEditorController.js"></script>
+    <environment names="Development">
+        <script src="~/js/controllers/simpleControls.js"></script>
+        <script src="~/js/controllers/app-trips.js"></script>
+        <script src="~/js/controllers/tripsController.js"></script>
+        <script src="~/js/controllers/tripEditorController.js"></script>
+    </environment>
+    <environment names="Production,Staging">
+        <script src="~/lib/_app/controllers/simpleControls.js"></script>
+        <script src="~/lib/_app/controllers/app-trips.js"></script>
+        <script src="~/lib/_app/controllers/tripsController.js"></script>
+        <script src="~/lib/_app/controllers/tripEditorController.js"></script>
+    </environment>
 }
 <div class="row" ng-app="app-trips">
 

@@ -44,7 +44,7 @@ namespace TheWorld
             }
             else
             {
-                //services.AddScoped<IMailService, ElServicioReal>();
+                services.AddScoped<IMailService, DebugMailService>(); //Aqui debería ir el servicio real
             }
 
             services.AddIdentity<WorldUser, IdentityRole>(config =>
